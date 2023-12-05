@@ -5,6 +5,8 @@ package base;
 // import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import pages.HomePage;
 
 import java.util.List;
@@ -14,11 +16,11 @@ public class BaseTest {
     private WebDriver driver;
     protected HomePage homePage;
 
+    @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/");
-
         homePage = new HomePage(driver);
 
 ///////// These comments are just examples for practice, this type of code must be in the main folder /////////
@@ -38,12 +40,10 @@ public class BaseTest {
 //
 //        List<WebElement> links = driver.findElements(By.xpath("//ul//li"));
 //        System.out.println(links.size());
-
-        driver.quit();
     }
 
-    public static void main(String args[]) {
-        BaseTest test = new BaseTest();
-        test.setUp();
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
     }
 }
