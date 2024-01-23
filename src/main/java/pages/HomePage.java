@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class HomePage {
 
@@ -26,6 +27,6 @@ public class HomePage {
     }
 
     private void clickLink(String linkText) {
-        driver.findElement(By.linkText(linkText));
+        driver.findElement(By.linkText(linkText)).click();
     }
 }
