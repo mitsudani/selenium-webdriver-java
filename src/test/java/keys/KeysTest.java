@@ -20,4 +20,11 @@ public class KeysTest extends BaseTest {
         var keyPage = homePage.clickKeyPresses();
         keyPage.enterPi();
     }
+
+    @Test
+    public void testHorizontalSlider() {
+        var sliderPage = homePage.clickHorizontalSlider();
+        sliderPage.moveSlider();
+        assertEquals(sliderPage.getResult(), "4");
+    }
 }
