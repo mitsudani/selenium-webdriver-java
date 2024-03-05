@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import pages.HomePage;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class BaseTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get("https://the-internet.herokuapp.com/");
+        goHome();
         homePage = new HomePage(driver);
 
 ///////// These comments are just examples for practice, this type of code must be in the main folder /////////
@@ -40,6 +41,11 @@ public class BaseTest {
 //
 //        List<WebElement> links = driver.findElements(By.xpath("//ul//li"));
 //        System.out.println(links.size());
+    }
+
+    @BeforeMethod
+    public void goHome() {
+        driver.get("https://the-internet.herokuapp.com/");
     }
 
     @AfterClass
