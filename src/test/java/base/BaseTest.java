@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import pages.HomePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
@@ -21,6 +22,8 @@ public class BaseTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
+        // Implicit wait example
+        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         goHome();
         homePage = new HomePage(driver);
 

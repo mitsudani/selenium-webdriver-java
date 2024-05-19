@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class NestedFramesTests extends BaseTest {
+public class NestedFramesTest extends BaseTest {
 
     @Test
     public void testNestedFrames() {

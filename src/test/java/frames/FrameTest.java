@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class FrameTests extends BaseTest {
+public class FrameTest extends BaseTest {
 
     @Test
     public void testWysiwyg() {
