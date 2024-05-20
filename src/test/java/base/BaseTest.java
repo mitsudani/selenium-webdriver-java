@@ -22,8 +22,14 @@ public class BaseTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
-        // Implicit wait example
+
+        // Implicit wait example:
         //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+        // Other wait strategies:
+        //driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+        //driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+
         goHome();
         homePage = new HomePage(driver);
 
