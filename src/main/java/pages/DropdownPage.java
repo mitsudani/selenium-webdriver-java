@@ -32,7 +32,8 @@ public class DropdownPage {
     }
 
     public void setMultipleSelection() {
-        String script = "window.scrollTo(0, document.body.scrollHeight)";
-        var jsExecutor = ((JavascriptExecutor)driver);
+        WebElement dropdownElement = driver.findElement(dropdown);
+        String script = "arguments[0].setAttribute('multiple', '')";
+        ((JavascriptExecutor)driver).executeScript(script, dropdownElement);
     }
 }
