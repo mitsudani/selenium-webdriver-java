@@ -4,12 +4,15 @@ package base;
 // import org.openqa.selenium.Dimension;
 // import org.openqa.selenium.WebElement;
 import com.google.common.io.Files;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -33,7 +36,7 @@ public class BaseTest {
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(getChromeOptions());
         WebDriverListener listener = new EventReporter();
         WebDriver decoratedDriver = new EventFiringDecorator(listener).decorate(driver);
 
@@ -45,6 +48,9 @@ public class BaseTest {
         //driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
 
         goHome();
+        setCookie("tau", "123");
+        deleteCookie("optimizelyBuckets");
+        isCookiePresent("optimizelyBuckets");
         homePage = new HomePage(decoratedDriver);
 
 ///////// These comments are just examples for practice, this type of code must be in the main folder /////////
@@ -93,5 +99,34 @@ public class BaseTest {
 
     public WindowManager getWindowManage() {
         return new WindowManager(driver);
+    }
+
+    private ChromeOptions getChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        //From Chrome v76.x onwards disable-infobars flag is officially deprecated
+        //options.addArguments("disable-infobars");
+        //New
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        //Removed in Selenium 4.10.0
+        //options.setHeadless(true);
+        //New
+        //options.addArguments("--headless=new");
+        return options;
+    }
+
+    private void setCookie(String cookieName, String cookieValue) {
+        Cookie cookie = new Cookie.Builder(cookieName, cookieValue)
+                .domain("the-internet.herokuapp.com")
+                .build();
+        driver.manage().addCookie(cookie);
+    }
+
+    private void deleteCookie(String cookieName) {
+        driver.manage().deleteCookieNamed(cookieName);
+    }
+
+    private boolean isCookiePresent(String cookieName)
+    {
+        return driver.manage().getCookieNamed(cookieName) != null;
     }
 }
